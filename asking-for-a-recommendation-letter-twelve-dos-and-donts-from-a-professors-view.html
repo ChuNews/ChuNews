@@ -30,7 +30,68 @@
 						s.src = 'https://cusdis.com/js/cusdis.es.js';
 						(d.head || d.body).appendChild(s);
 					})();
-				}</script><script type="text/javascript"></script></div></div></div></div></main><footer class="footer footer--glued"><div class="wrapper"><div class="footer__copyright"><p>Powered by Publii</p></div><button id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg width="20" height="20"><use xlink:href="https://ChuNews.github.io/ChuNews/assets/svg/svg-map.svg#toparrow"/></svg></button></div></footer><script defer="defer" src="https://ChuNews.github.io/ChuNews/assets/js/scripts.min.js?v=dafec4f87fead6718cb125f0b0fc8441"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
+				}</script><script type="text/javascript"></script></div></div></div></div><div class="banner banner--after-content"><div class="wrapper"><div id="firebase-like-button" style="margin-top:40px; padding:15px; text-align:center;">❤️ Did you enjoy this story? <button id="like-btn" style="font-size:16px; cursor:pointer;">❤️ <span id="like-count">0</span></button></div><script type="module">import { initializeApp } 
+  from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+
+  import { getFirestore, doc, getDoc, updateDoc, setDoc, increment } 
+  from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNEtdV2T4Tg6KD3A41JHuIks49WoJZMPw",
+    authDomain: "chu-news-f1a5c.firebaseapp.com",
+    projectId: "chu-news-f1a5c",
+    storageBucket: "chu-news-f1a5c.firebasestorage.app",
+    messagingSenderId: "403221769662",
+    appId: "1:403221769662:web:a02bf06ae6f1a2d18c5def"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+
+  // Use the article URL as the ID
+  const articleID = window.location.pathname
+    .replace(/\//g, "-")
+    .replace(".html", "");
+
+
+  const likeRef = doc(db, "likes", articleID);
+
+
+  const countDisplay = document.getElementById("like-count");
+  const button = document.getElementById("like-btn");
+
+
+  // Show current count
+  const saved = await getDoc(likeRef);
+
+  if (saved.exists()) {
+    countDisplay.textContent = saved.data().count;
+  }
+
+
+  // Add one like
+  button.onclick = async () => {
+
+    const current = await getDoc(likeRef);
+
+    if (current.exists()) {
+      await updateDoc(likeRef, {
+        count: increment(1)
+      });
+    } else {
+      await setDoc(likeRef, {
+        count: 1
+      });
+    }
+
+    const updated = await getDoc(likeRef);
+    countDisplay.textContent = updated.data().count;
+
+    button.disabled = true;
+  };</script></div></div></main><footer class="footer footer--glued"><div class="wrapper"><div class="footer__copyright"><p>Powered by Publii</p></div><button id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg width="20" height="20"><use xlink:href="https://ChuNews.github.io/ChuNews/assets/svg/svg-map.svg#toparrow"/></svg></button></div></footer><script defer="defer" src="https://ChuNews.github.io/ChuNews/assets/js/scripts.min.js?v=dafec4f87fead6718cb125f0b0fc8441"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
         for (var i = 0; i < images.length; i++) {
             if (images[i].complete) {
                 images[i].classList.add('is-loaded');
