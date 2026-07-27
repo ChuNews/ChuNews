@@ -62,7 +62,11 @@
 
   const countDisplay = document.getElementById("like-count");
   const button = document.getElementById("like-btn");
+const likeKey = "liked-" + articleID;
 
+if (localStorage.getItem(likeKey)) {
+  button.disabled = true;
+}
 
   // Show current count
   const saved = await getDoc(likeRef);
@@ -91,6 +95,7 @@
     countDisplay.textContent = updated.data().count;
 
     button.disabled = true;
+    localStorage.setItem(likeKey, "yes");
   };</script></div></div></main><footer class="footer footer--glued"><div class="wrapper"><div class="footer__copyright"><p>Powered by Publii</p></div><button id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg width="20" height="20"><use xlink:href="https://ChuNews.github.io/ChuNews/assets/svg/svg-map.svg#toparrow"/></svg></button></div></footer><script defer="defer" src="https://ChuNews.github.io/ChuNews/assets/js/scripts.min.js?v=dafec4f87fead6718cb125f0b0fc8441"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
         for (var i = 0; i < images.length; i++) {
             if (images[i].complete) {
